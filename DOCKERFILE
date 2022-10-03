@@ -1,0 +1,7 @@
+FROM node:18-alpine as build
+WORKDIR /app
+COPY build.js  /app
+RUN node ./build.js
+
+FROM httpd:2.4-alpine
+COPY --from=build /app/data /usr/local/apache2/htdocs/
